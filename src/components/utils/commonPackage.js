@@ -1,6 +1,6 @@
 import { useLoading } from 'vue-loading-overlay';
 
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 
@@ -14,19 +14,13 @@ export default function () {
   const swalTrigger = (title, text, status) => {
     console.log(title, text, status);
 
-    swal({
+    Swal.fire({
       title,
       text,
       icon: status,
-      buttons: false,
+      showConfirmButton: false,
+      timer: 1000,
     });
-
-    // 1 秒之後關掉 swal
-    setTimeout(() => {
-      if (swal.getState().isOpen) {
-        swal.close();
-      }
-    }, 1000);
   };
 
   //   axios.defaults.headers.common.Authorization = token;
