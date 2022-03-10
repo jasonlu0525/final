@@ -7,22 +7,16 @@
     <router-view />
   </div>
 </template>
-<script>
+<script setup>
 import { useRouter } from 'vue-router';
 
 import commonPackage from '@/components/utils/commonPackage';
 
-export default {
-  setup() {
-    const { postLoginCheck } = commonPackage();
-    const router = useRouter();
+const { postLoginCheck } = commonPackage();
+const router = useRouter();
 
-    postLoginCheck({}).catch((err) => {
-      router.push('/login');
-      alert(err.response.data.message);
-    });
-
-    return {};
-  },
-};
+postLoginCheck({}).catch((err) => {
+  router.push('/login');
+  alert(err.response.data.message);
+});
 </script>

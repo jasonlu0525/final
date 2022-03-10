@@ -101,7 +101,7 @@ export default {
     const orderData = ref({});
     const detailModalDom = ref(null);
 
-    getAdminOrder({})
+    getAdminOrder({ generateLoader: false })
       .then((result) => {
         orderData.value = result.data;
 

@@ -31,15 +31,14 @@ const routes = [
 
         component: () => import('@/views/client/Cart.vue'), //
       },
-
-      {
-        path: 'login',
-        name: 'login',
-        component: () => import('@/views/manager/Login.vue'),
-      },
     ],
   },
-
+  // 登入頁面
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/client/Login.vue'),
+  },
   // 後台
   {
     path: '/dashboard',

@@ -24,10 +24,13 @@ export default {
 @import './assets/stylesheet/base.scss';
 
 @import '../node_modules/bootstrap/scss/functions';
-@import '../node_modules/bootstrap/scss/variables';
+@import './assets/stylesheet/helpers/variables';
+
 @import '../node_modules/bootstrap/scss/mixins';
 
 @import './assets/stylesheet/util.scss';
 
 @import '~bootstrap/scss/bootstrap';
+
+@import './assets/stylesheet/vendors/sweeralert';
 </style>
