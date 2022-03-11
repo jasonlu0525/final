@@ -28,9 +28,10 @@ export default {
 
 @import '../node_modules/bootstrap/scss/mixins';
 
-@import './assets/stylesheet/util.scss';
+@import './assets/stylesheet/util';
 
 @import '~bootstrap/scss/bootstrap';
 
 @import './assets/stylesheet/vendors/sweeralert';
+@import './assets/stylesheet/helpers/background';
 </style>

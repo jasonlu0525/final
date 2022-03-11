@@ -525,6 +525,7 @@ $utilities: map-merge(
         ),
       ),
     'font-size': (
+      responsive: true,
       rfs: true,
       property: font-size,
       class: fs,
