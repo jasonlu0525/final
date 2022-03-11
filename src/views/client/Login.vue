@@ -71,7 +71,7 @@ const user = ref({
 });
 
 const login = () => {
-  postLogin(user.value).then((result) => {
+  postLogin(user.value, false).then((result) => {
     const { token, expired } = result.data;
 
     document.cookie = `user=${token};expires=${new Date(expired)};path=/`;
