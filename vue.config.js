@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/v-router/dist/' : '',
+  publicPath: process.env.NODE_ENV === 'production' ? '/final' : '',
 };
