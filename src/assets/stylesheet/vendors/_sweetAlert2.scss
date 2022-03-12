@@ -1,0 +1,4 @@
+.swal2-container {
+  /* 解決 vue-loading-overlay  圖層覆蓋 sweetalert2 問題*/
+  z-index: 99999 !important;
+}

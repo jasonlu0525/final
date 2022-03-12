@@ -20,5 +20,6 @@ export default {
 @import './assets/stylesheet/util.scss';
 @import './assets/stylesheet/base.scss';
 @import '~bootstrap/scss/bootstrap';
-@import './assets/stylesheet/vendors/sweeralert';
+@import './assets/stylesheet/vendors/sweetAlert2';
+
 </style>
