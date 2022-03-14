@@ -1,5 +1,6 @@
 <template>
-  <div class="text-end my-4">
+  <div class="d-flex justify-content-between mb-4">
+    <h1 class="mb-0">產品管理</h1>
     <button
       class="btn btn-primary"
       @click="
@@ -13,7 +14,7 @@
       建立新的產品
     </button>
   </div>
-  <table class="table table-hbver">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th scope="row">分類</th>

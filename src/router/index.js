@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import('@/views/manager/Dashboard.vue'),
+    component: () => import('@/views/manager/DashboardLayout.vue'),
     children: [
       {
         path: '',
@@ -54,6 +54,11 @@ const routes = [
         path: 'product',
         name: 'dashboardProduct',
         component: () => import('@/views/manager/Product.vue'),
+      },
+      {
+        path: 'coupon',
+        name: 'coupon',
+        component: () => import('@/views/manager/Coupon.vue'),
       },
     ],
   },

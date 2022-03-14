@@ -1,4 +1,21 @@
 <template>
+  <div class="d-flex justify-content-between mb-3">
+    <h1 class="mb-0">訂單管理</h1>
+    <button
+      class="btn btn-danger bg-danger"
+      type="button"
+      @click="deleteAllOrders()"
+      :disabled="orderData.hasOwnProperty('orders') && orderData.orders.length === 0"
+    >
+      刪除全部訂單
+      {{
+        orderData.hasOwnProperty('orders') && orderData.orders.length === 0
+          ? '(目前沒有訂單，因此不能刪除訂單 )'
+          : ''
+      }}
+    </button>
+  </div>
+
   <table class="table table-hover">
     <thead>
       <tr class="">
@@ -59,26 +76,11 @@
     </tbody>
   </table>
 
-  <div class="d-flex justify-content-between">
-    <button
-      class="btn btn-danger bg-danger"
-      type="button"
-      @click="deleteAllOrders()"
-      :disabled="orderData.hasOwnProperty('orders') && orderData.orders.length === 0"
-    >
-      刪除全部訂單
-      {{
-        orderData.hasOwnProperty('orders') && orderData.orders.length === 0
-          ? '(目前沒有訂單，因此不能刪除訂單 )'
-          : ''
-      }}
-    </button>
-    <pagination
-      v-if="orderData.pagination"
-      :propPagination="orderData.pagination"
-      @emit-change-page="orderChangePage"
-    ></pagination>
-  </div>
+  <pagination
+    v-if="orderData.pagination"
+    :propPagination="orderData.pagination"
+    @emit-change-page="orderChangePage"
+  ></pagination>
   <detail-order-modal ref="detailModalDom" @emit-update-order="updateOrder"></detail-order-modal>
 </template>
 <script>
