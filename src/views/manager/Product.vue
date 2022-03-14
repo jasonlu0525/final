@@ -14,58 +14,66 @@
       建立新的產品
     </button>
   </div>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="row">分類</th>
-        <td>產品名稱</td>
-        <td>原價</td>
-        <td>售價</td>
-        <td>是否啟用</td>
-        <td>編輯</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(item, index) in adminProductsData.products" :key="index">
-        <th scope="row">{{ item.category }}</th>
-        <td>{{ item.title }}</td>
-        <td>{{ item.origin_price }}</td>
-        <td>{{ item.price }}</td>
-        <td :class="{ 'text-success': item.is_enabled, 'text-danger': !item.is_enabled }">
-          {{ item.is_enabled ? '已啟用' : '未啟用' }}
-        </td>
-        <td>
-          <div class="btn-group">
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm"
-              @click="
-                generateModal({
-                  targetModal: adjustProdutModalDom,
-                  id: item.id,
-                  page,
-                  coipedData: JSON.parse(JSON.stringify(item)),
-                  action: 'put',
-                })
-              "
-            >
-              編輯</button
-            ><button
-              type="button"
-              class="btn btn-outline-danger btn-sm"
-              @click="
-                generateModal({ targetModal: deleteModalDom, id: item.id, page, action: 'delete' })
-              "
-            >
-              刪除
-            </button>
+  <div class="table-responsive text-nowrap">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="row">分類</th>
+          <td>產品名稱</td>
+          <td>原價</td>
+          <td>售價</td>
+          <td>是否啟用</td>
+          <td>編輯</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in adminProductsData.products" :key="index">
+          <th scope="row">{{ item.category }}</th>
+          <td>{{ item.title }}</td>
+          <td>{{ item.origin_price }}</td>
+          <td>{{ item.price }}</td>
+          <td :class="{ 'text-success': item.is_enabled, 'text-danger': !item.is_enabled }">
+            {{ item.is_enabled ? '已啟用' : '未啟用' }}
+          </td>
+          <td>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                @click="
+                  generateModal({
+                    targetModal: adjustProdutModalDom,
+                    id: item.id,
+                    page,
+                    coipedData: JSON.parse(JSON.stringify(item)),
+                    action: 'put',
+                  })
+                "
+              >
+                編輯</button
+              ><button
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+                @click="
+                  generateModal({
+                    targetModal: deleteModalDom,
+                    id: item.id,
+                    page,
+                    action: 'delete',
+                  })
+                "
+              >
+                刪除
+              </button>
 
-            <!-- deleteSingleProduct({ id: item.id }) -->
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+              <!-- deleteSingleProduct({ id: item.id }) -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <pagination
     v-if="adminProductsData.pagination"
     :propPagination="adminProductsData.pagination"

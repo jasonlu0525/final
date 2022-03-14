@@ -96,12 +96,14 @@ $utilities: map-merge(
       values: $position-values,
     ),
     'translate-middle': (
+      responsive:true,
       property: transform,
       class: translate-middle,
       values: (
         null: translate(-50%, -50%),
         x: translateX(-50%),
         y: translateY(-50%),
+        'y-0':translateY(0%),
       ),
     ),
     // scss-docs-end utils-position
@@ -216,16 +218,20 @@ $utilities: map-merge(
       ),
     ),
     'viewport-height': (
+      responsive:true,
       property: height,
       class: vh,
       values: (
+        auto:auto,
         100: 100vh,
       ),
     ),
     'min-viewport-height': (
+   
       property: min-height,
       class: min-vh,
       values: (
+        auto:auto,
         100: 100vh,
       ),
     ),
