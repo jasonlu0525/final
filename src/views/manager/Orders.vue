@@ -16,7 +16,7 @@
     </button>
   </div>
 
-  <table class="table table-hover">
+  <table class="table table-hover table-responsive">
     <thead>
       <tr class="">
         <th scope="col">訂單編號</th>
