@@ -1,8 +1,11 @@
 <template>
-  <nav class=" py-3 dashboard-menu vh-auto vh-lg-100 navbar-light navbar-expand-lg">
+  <nav
+    class="py-3 dashboard-menu vh-auto vh-lg-100 bg-dark text-white navbar-dark
+    navbar-expand-lg d-lg-flex flex-lg-column"
+  >
     <section class="mb-lg-5 px-3 position-relative">
       <button
-        class="navbar-toggler bg-white d-lg-none"
+        class="navbar-toggler d-lg-none"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarToggleExternalContent"
@@ -20,10 +23,51 @@
       </h1>
     </section>
 
-    <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-      <div class="d-flex flex-column">
-        <div class="d-flex justify-content-between align-items-center order-last order-lg-first
-        p-3">
+    <div
+      class="collapse navbar-collapse align-items-lg-stretch flex-lg-column
+      justify-content-lg-between"
+      id="navbarToggleExternalContent"
+    >
+      <ul class="navbar-nav d-lg-block">
+        <li class="">
+          <router-link class="nav-link p-3 ps-8 pb-7 d-flex align-items-center"
+          :to="{ name: 'orders' }">
+            <span class="material-icons-outlined me-4"> local_shipping </span>
+            訂單管理</router-link
+          >
+        </li>
+        <li class="">
+          <router-link class="nav-link p-3 ps-8 pb-7  d-flex align-items-center "
+          to="/dashboard/product">
+            <span class="material-icons-outlined me-4"> inventory </span>
+            產品管理</router-link
+          >
+        </li>
+        <li class="">
+          <router-link class="nav-link p-3 ps-8 pb-7 d-flex align-items-center"
+          to="/dashboard/coupon">
+            <span class="material-icons-outlined me-4"> discount </span>
+            <span> 優惠券管理</span></router-link
+          >
+        </li>
+        <li class="">
+          <router-link class="nav-link p-3 ps-8 pb-7 d-flex align-items-center"
+          to="/dashboard/article">
+            <span class="material-icons-outlined me-4"> article </span>
+            <span>文章管理</span></router-link
+          >
+        </li>
+        <li class="">
+          <a href="#" class="nav-link p-3 ps-8 pb-7 d-flex align-items-center"
+          rel="noopener noreferrer">
+            <span class="material-icons-outlined me-4"> home </span>
+            回到前台</a
+          >
+        </li>
+      </ul>
+
+      <div class="btn-group dropend ps-8 align-items-center">
+        <a class="d-flex justify-content-between align-items-center py-3" data-bs-toggle="dropdown">
           <img
             class="rounded-circle dashboard-body-image"
             width="96"
@@ -31,21 +75,15 @@
             src="https://randomuser.me/api/portraits/men/74.jpg"
             alt="user"
           />
-          <a href="#" class="material-icons fs-2 text-dark"> logout </a>
-        </div>
-
-        <ul class="navbar-nav flex-wrap">
-          <li class="w-100">
-            <router-link class="nav-link  p-3 ps-8  pb-7" to="/dashboard/">訂單管理</router-link>
+        </a>
+        <section class="ms-4">
+          <h4 class="fs-5">Jason</h4>
+          <small>@gmail.com</small>
+        </section>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li class="d-flex align-items-center">
+            <a href="#" class="material-icons dropdown-item w-auto text-dark"> logout </a>登出
           </li>
-          <li class="w-100">
-            <router-link class="nav-link p-3 ps-8 pb-7" to="/dashboard/product">產品管理</router-link>
-          </li>
-          <li class="w-100">
-            <router-link class="nav-link p-3 ps-8 pb-7" to="/dashboard/coupon">優惠券管理</router-link>
-          </li>
-          <li class="w-100" to="/"> <a href="#" class="nav-link p-3 ps-8 pb-7"
-           rel="noopener noreferrer">回到前台</a> </li>
         </ul>
       </div>
     </div>
@@ -69,7 +107,7 @@
 }
 
 .dashboard-menu {
-  width: 100%;
+  // width: 100%;
 
   @include media-breakpoint-up(lg) {
     position: absolute;
@@ -83,8 +121,8 @@
     width: 48px;
     height: 48px;
     @include media-breakpoint-up(lg) {
-      width: 96px;
-      height: 96px;
+      // width: 96px;
+      // height: 96px;
     }
   }
 
