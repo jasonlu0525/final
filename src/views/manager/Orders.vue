@@ -8,15 +8,15 @@
       :disabled="orderData.hasOwnProperty('orders') && orderData.orders.length === 0"
     >
       刪除全部訂單
-      {{
+      <!-- {{
         orderData.hasOwnProperty('orders') && orderData.orders.length === 0
           ? '(目前沒有訂單，因此不能刪除訂單 )'
           : ''
-      }}
+      }} -->
     </button>
   </div>
-
-  <table class="table table-hover table-responsive">
+<div class="table-responsive text-nowrap">
+  <table class="table table-hover">
     <thead>
       <tr class="">
         <th scope="col">訂單編號</th>
@@ -75,7 +75,7 @@
       </tr>
     </tbody>
   </table>
-
+</div>
   <pagination
     v-if="orderData.pagination"
     :propPagination="orderData.pagination"
