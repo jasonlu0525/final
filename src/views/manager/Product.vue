@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-content-between mb-4">
-    <h1 class="mb-0">產品管理</h1>
+  <div class="d-flex justify-content-between align-items-center mb-11">
+    <h2 class="mb-0 fs-3">產品管理</h2>
     <button
       class="btn btn-primary"
       @click="
@@ -14,8 +14,8 @@
       建立新的產品
     </button>
   </div>
-  <div class="table-responsive text-nowrap">
-    <table class="table table-hover">
+  <div class="table-responsive text-nowrap mb-4">
+    <table class="table table-hover mb-0">
       <thead>
         <tr>
           <th scope="row">分類</th>

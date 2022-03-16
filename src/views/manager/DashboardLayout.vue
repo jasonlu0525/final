@@ -1,9 +1,9 @@
 <template>
   <nav
-    class="py-3 dashboard-menu vh-auto vh-lg-100 bg-dark text-white navbar-dark
+    class=" py-3 py-lg-8 dashboard-menu vh-auto vh-lg-100 bg-dark text-white navbar-dark
     navbar-expand-lg d-lg-flex flex-lg-column"
   >
-    <section class="mb-lg-5 px-3 position-relative">
+    <section class=" mb-lg-11  px-3 px-lg-8 position-relative">
       <button
         class="navbar-toggler d-lg-none"
         type="button"
@@ -24,14 +24,14 @@
     </section>
 
     <div
-      class="collapse navbar-collapse align-items-lg-stretch flex-lg-column
+      class="collapse navbar-collapse align-items-lg-stretch flex-lg-column mt-7 mt-lg-0
       justify-content-lg-between"
       id="navbarToggleExternalContent"
     >
       <ul class="navbar-nav d-lg-block">
         <li class="">
           <router-link class="nav-link p-3 ps-8 pb-7 d-flex align-items-center"
-          :to="{ name: 'orders' }">
+          :to="{ name: 'orders' }" :class="{ 'active' :  name=== 'orders' }">
             <span class="material-icons-outlined me-4"> local_shipping </span>
             訂單管理</router-link
           >
@@ -69,7 +69,7 @@
       <div class="btn-group dropend ps-8 align-items-center">
         <a class="d-flex justify-content-between align-items-center py-3" data-bs-toggle="dropdown">
           <img
-            class="rounded-circle dashboard-body-image"
+            class="rounded-circle dashboard-menu-image"
             width="96"
             height="96"
             src="https://randomuser.me/api/portraits/men/74.jpg"
@@ -77,23 +77,28 @@
           />
         </a>
         <section class="ms-4">
-          <h4 class="fs-5">Jason</h4>
-          <small>@gmail.com</small>
+          <h4 class="fs-6 mb-1">Jason</h4>
+          <small>@gmail.com </small>
         </section>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li class="d-flex align-items-center">
-            <a href="#" class="material-icons dropdown-item w-auto text-dark"> logout </a>登出
+        <ul class="dropdown-menu rounded-3 p-0" aria-labelledby="dropdownMenuButton1">
+          <li class="dropdown-item">
+            <a href="#" class="d-flex align-items-center w-100 text-muted py-2">
+            <span class="material-icons  w-auto
+            text-dark">logout</span>登出 </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container-fluid">
-    <div class="row justify-content-center dashboard-body overflow-hidden py-4">
-      <div class="col-lg-10">
+  <div class=" dashboard-body">
+  <div class="container-fluid py-8 gx-lg-8">
+    <div class="row justify-content-center overflow-hidden ">
+      <div class="col">
         <router-view />
       </div>
     </div>
+  </div>
+
   </div>
 </template>
 
@@ -101,10 +106,6 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
-
-#app {
-  overflow: hidden;
-}
 
 .dashboard-menu {
   // width: 100%;
@@ -114,9 +115,6 @@
     z-index: 999;
     width: 296px;
   }
-}
-
-.dashboard-body {
   &-image {
     width: 48px;
     height: 48px;
@@ -125,7 +123,8 @@
       // height: 96px;
     }
   }
-
+}
+.dashboard-body {
   @include media-breakpoint-up(lg) {
     margin-left: 296px;
   }

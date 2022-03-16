@@ -38,6 +38,7 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/client/Login.vue'),
+
   },
   // 後台
   {
@@ -46,9 +47,12 @@ const routes = [
     component: () => import('@/views/manager/DashboardLayout.vue'),
     children: [
       {
-        path: 'order',
+        path: '',
         name: 'orders',
         component: () => import('@/views/manager/Orders.vue'),
+        meta: {
+          active: '',
+        },
       },
       {
         path: 'product',
@@ -59,6 +63,11 @@ const routes = [
         path: 'coupon',
         name: 'coupon',
         component: () => import('@/views/manager/Coupon.vue'),
+      },
+      {
+        path: 'article',
+        name: 'article',
+        component: () => import('@/views/manager/Article.vue'),
       },
     ],
   },
