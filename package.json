@@ -18,7 +18,7 @@
     "core-js": "^3.6.5",
     "mitt": "^3.0.0",
     "popper.js": "^1.16.1",
-    "prettier": "^1.9.1",
+    "prettier": "^2.4.1",
     "prettier-eslint": "^10.1.0",
     "style-resources-loader": "^1.5.0",
     "sweetalert": "^2.1.2",
@@ -26,7 +26,7 @@
     "vee-validate": "^4.5.7",
     "vue": "^3.2.31",
     "vue-axios": "^3.4.0",
-    "vue-eslint-parser": "^7.1.1",
+    "vue-eslint-parser": "^8.0.0",
     "vue-loading-overlay": "^5.0.3",
     "vue-router": "^4.0.0-0"
   },
@@ -39,7 +39,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0",
     "sass": "^1.49.9",
@@ -51,11 +51,18 @@
     "env": {
       "node": true
     },
-    "extends": ["plugin:vue/vue3-essential", "@vue/airbnb"],
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "@vue/airbnb"
+    ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
     "rules": {}
   },
-  "browserslist": ["> 1%", "last 2 versions", "not dead"]
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

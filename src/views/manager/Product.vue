@@ -5,7 +5,7 @@
       class="btn btn-primary"
       @click="
         generateModal({
-          targetModal: adjustProdutModalDom,
+          targetModal: adjustProductModalDom,
           page,
           action: 'post',
         })
@@ -42,7 +42,7 @@
                 class="btn btn-outline-primary btn-sm"
                 @click="
                   generateModal({
-                    targetModal: adjustProdutModalDom,
+                    targetModal: adjustProductModalDom,
                     id: item.id,
                     page,
                     coipedData: JSON.parse(JSON.stringify(item)),
@@ -80,97 +80,79 @@
     @emit-change-page="productChangePage"
   ></pagination>
   <delete-modal ref="deleteModalDom" @emit-delete-order="deleteSingleProduct"></delete-modal>
-  <adjust-produt-modal
-    ref="adjustProdutModalDom"
+  <adjust-product-modal
+    ref="adjustProductModalDom"
     @emit-add-newProduct="onAddNewProduct"
     @emit-edit-product="onEditProduct"
-  ></adjust-produt-modal>
+  ></adjust-product-modal>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
-
 import pagination from '@/components/Pagination.vue';
 import deleteModal from '@/components/DeleteModal.vue';
-import adjustProdutModal from '@/components/AdjustProductModal.vue';
+import adjustProductModal from '@/components/AdjustProductModal.vue';
 import commonPackage from '@/components/utils/commonPackage';
 
-export default {
-  components: {
-    pagination,
-    deleteModal,
-    adjustProdutModal,
-  },
-  setup() {
-    //
-    const {
-      getAdminProducts, deleteAdminProduct, putAdminProduct, postAdminProduct,
-    } = commonPackage();
-    const adminProductsData = ref({});
-    const deleteModalDom = ref(null); // 元件
-    const adjustProdutModalDom = ref(null);
+const {
+  getAdminProducts,
 
-    getAdminProducts({}).then((result) => {
+  deleteAdminProduct,
+  putAdminProduct,
+  postAdminProduct,
+} = commonPackage();
+const adminProductsData = ref({});
+const deleteModalDom = ref(null); // 元件
+const adjustProductModalDom = ref(null);
+
+getAdminProducts({}).then((result) => {
+  adminProductsData.value = result.data;
+});
+
+const productChangePage = (page) => {
+  getAdminProducts({ page }).then((result) => {
+    adminProductsData.value = result.data;
+  });
+};
+
+const deleteSingleProduct = ({ id, page }) => {
+  deleteAdminProduct({ id })
+    .then(() => getAdminProducts({ page }))
+
+    .then((result) => {
       adminProductsData.value = result.data;
     });
+};
 
-    const productChangePage = (page) => {
-      getAdminProducts({ page }).then((result) => {
-        adminProductsData.value = result.data;
-      });
-    };
+const generateModal = ({
+  targetModal, // 要打開的 modal 元件
+  id, // 編輯功能會用到 id
+  page = adminProductsData.value.pagination.current_page, // 打開 modal 時在第幾頁，必填
+  coipedData = {}, // 複製的資料 | 新增功能預設帶入空物件
+  action = 'put', // 請求方法 ，必填
+}) => {
+  //  targetModal 已
+  targetModal.genertaeModal({
+    id,
+    page,
+    coipedData,
+    action,
+  });
+};
 
-    const deleteSingleProduct = ({ id, page }) => {
-      deleteAdminProduct({ id })
-        .then(() => getAdminProducts({ page }))
+const onAddNewProduct = (modalData) => {
+  postAdminProduct({ config: modalData.copiedData })
+    .then(() => getAdminProducts({ page: modalData.page, generateLoader: false }))
+    .then((result) => {
+      adminProductsData.value = result.data;
+    });
+};
+const onEditProduct = (modalData) => {
+  putAdminProduct({ id: modalData.id, config: modalData.copiedData })
+    .then(() => getAdminProducts({ page: modalData.page, generateLoader: false }))
 
-        .then((result) => {
-          adminProductsData.value = result.data;
-        });
-    };
-
-    const generateModal = ({
-      targetModal, // 要打開的 modal 元件
-      id, // 編輯功能會用到 id
-      page = adminProductsData.value.pagination.current_page, // 打開 modal 時在第幾頁，必填
-      coipedData = {}, // 複製的資料 | 新增功能預設帶入空物件
-      action = 'put', // 請求方法 ，必填
-    }) => {
-      //  targetModal 已
-      targetModal.genertaeModal({
-        id,
-        page,
-        coipedData,
-        action,
-      });
-    };
-
-    const onAddNewProduct = (modalData) => {
-      postAdminProduct({ config: modalData.copiedData })
-        .then(() => getAdminProducts({ page: modalData.page, generateLoader: false }))
-        .then((result) => {
-          adminProductsData.value = result.data;
-        });
-    };
-    const onEditProduct = (modalData) => {
-      putAdminProduct({ id: modalData.id, config: modalData.copiedData })
-        .then(() => getAdminProducts({ page: modalData.page, generateLoader: false }))
-
-        .then((result) => {
-          adminProductsData.value = result.data;
-        });
-    };
-
-    return {
-      adminProductsData,
-      productChangePage,
-      deleteSingleProduct,
-      generateModal,
-      deleteModalDom,
-      adjustProdutModalDom,
-      onAddNewProduct,
-      onEditProduct,
-    };
-  },
+    .then((result) => {
+      adminProductsData.value = result.data;
+    });
 };
 </script>
