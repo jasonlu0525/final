@@ -56,7 +56,6 @@
           <router-link
             class="nav-link p-3 ps-8 pb-7 d-flex align-items-center"
             :to="{ name: 'orders' }"
-            :class="{ active: name === 'orders' }"
           >
             <span class="material-icons-outlined me-4"> local_shipping </span>
             訂單管理</router-link

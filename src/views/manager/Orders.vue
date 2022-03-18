@@ -8,11 +8,6 @@
       :disabled="orderData.hasOwnProperty('orders') && orderData.orders.length === 0"
     >
       刪除全部訂單
-      <!-- {{
-        orderData.hasOwnProperty('orders') && orderData.orders.length === 0
-          ? '(目前沒有訂單，因此不能刪除訂單 )'
-          : ''
-      }} -->
     </button>
   </div>
   <div class="table-responsive text-nowrap mb-4">
@@ -76,20 +71,20 @@
       </tbody>
     </table>
   </div>
-  <pagination
+  <Pagination
     v-if="orderData.pagination"
     :propPagination="orderData.pagination"
     @emit-change-page="orderChangePage"
-  ></pagination>
-  <detail-order-modal ref="detailModalDom" @emit-update-order="updateOrder"></detail-order-modal>
+  />
+  <DetailOrderModal ref="detailModalDom" @emit-update-order="updateOrder" />
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { Modal } from 'bootstrap';
-import pagination from '@/components/Pagination.vue';
+import { ref, defineExpose } from 'vue';
+// import { Modal } from 'bootstrap';
+import Pagination from '@/components/Pagination.vue';
 import commonPackage from '@/components/utils/commonPackage';
-import detailOrderModal from '@/components/DetailOrderModal.vue';
+import DetailOrderModal from '@/components/DetailOrderModal.vue';
 
 const {
   getAdminOrder, deleteOrder, deleteOrders, putOrder,
@@ -138,11 +133,12 @@ const orderChangePage = (page) => {
     detailModalDom.value.editor.currentPage = page; // 把現在的頁碼 傳送給 modal ， 讓訂單更新之後請求該訂單所在的頁碼
   });
 };
-
+// item
 const openDataModal = ({ item }) => {
-  detailModalDom.value.detailModal = new Modal(document.querySelector('#detailModal')).show();
-  detailModalDom.value.singleData = item; // 把訂單的資料傳入 modal
-
+  console.log(detailModalDom.value.detailModalDom, detailModalDom.value.generateModal);
+  detailModalDom.value.generateModal();
+  // detailModalDom.value.generateModal();
+  detailModalDom.value.editor.data = item; // 把訂單的資料傳入 modal
   // detailModalDom.value.editor.index = index;
   // 把要訂單的 index 索引， 傳入 modal 元件 ， 用於將更新後的資料 寫回 modal 的資料
 };
@@ -163,4 +159,8 @@ const updateOrder = ({
       // 將更新後的資料 寫回 modal  ( 使用 orderChangePage() 寫入的 index  )
     });
 };
+
+defineExpose({
+  openDataModal,
+});
 </script>
