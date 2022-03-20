@@ -143,7 +143,7 @@ export default function () {
     generateLoader,
   });
 
-  /* 標單驗證 API */
+  /* 表單驗證 API */
 
   const postLoginCheck = ({ generateLoader, Authorization = true }) => taskQueue({
     method: 'post',

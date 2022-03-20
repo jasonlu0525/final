@@ -8,7 +8,7 @@
     aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered" v-if="editor.data.user">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title">詳細資訊</h5>
@@ -21,7 +21,7 @@
           ></button>
         </div>
 
-        <div class="modal-body" v-if="editor.data.user.name">
+        <div class="modal-body" v-if="editor.data.user">
           <h3 class="text-center bg-dark text-white py-3 mb-3">顧客資料</h3>
 
           <!-- <template v-if="editor.canEdit"> -->
@@ -110,21 +110,21 @@
                   name="留言"
                   type="text"
                   class="form-control"
-                  rules="required"
                   v-model="editor.data.message"
-                  :class="{ 'is-invalid': errors['留言'] }"
                   placeholder="請輸入留言"
                   as="textarea"
                   :readonly="!editor.canEdit"
                 ></field>
-                <error-message name="留言" class="invalid-feedback"></error-message>
               </div>
             </section>
 
             <button
               class="btn btn-primary d-block ms-auto mb-3"
               type="button"
-              @click="editor.canEdit = true"
+              @click="
+                (editor.canEdit = true),
+                  (editor.readonlyData = JSON.parse(JSON.stringify(editor.data)))
+              "
               v-if="editor.canEdit === false"
             >
               編輯
@@ -134,16 +134,101 @@
               <button
                 type="button"
                 class="btn btn-dark text-white me-3"
-                @click="editor.canEdit = false"
+                @click="
+                  (editor.canEdit = false),
+                    (editor.data = JSON.parse(JSON.stringify(editor.readonlyData)))
+                "
               >
                 取消
               </button>
-              <button type="submit" class="btn btn-primary text-white">更新</button>
+              <button type="submit" class="btn btn-primary text-white"
+              :disabled="Object.keys(errors).length>0">更新</button>
             </div>
           </Form>
-          <!-- </template> -->
 
-          <!-- <template v-else>
+          <section>
+            <h3 class="text-center bg-dark text-white py-3 mb-3">訂單資料</h3>
+          </section>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>訂單編號</th>
+                <td>{{ editor.data.id }}</td>
+              </tr>
+              <tr>
+                <th scope="row">訂單日期</th>
+                <td>{{ new Date(editor.data.create_at * 1000).toLocaleDateString() }}</td>
+              </tr>
+              <tr>
+                <th scope="row">訂單狀態</th>
+                <td>{{ editor.data?.is_paid ? '已處理' : '未處理' }}</td>
+              </tr>
+              <tr>
+                <th scope="row">訂單明細</th>
+                <td>
+                  <ul class="ps-0 mb-0">
+                    <li
+                      v-for="(item, index) in Object.values(editor.data.products)"
+                      :key="index"
+                      class="d-flex justify-content-between"
+                    >
+                      {{ item.product.title }} <span> {{ item.qty }} 件</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-end">總金額 {{ editor.data.total }} 元</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+// import detailModalModel from '@/components/utils/DetailModalModel';
+
+import { ref, defineExpose, watch } from 'vue';
+import { Modal } from 'bootstrap';
+
+const detailModalDom = ref(null);
+let detailModal = null;
+const form = ref(null);
+
+const editor = ref({
+  canEdit: false,
+  data: {},
+  readonlyData: {},
+  currentPage: 1, // 目前頁面在第幾頁，預設為第 1 頁
+});
+
+const generateModal = () => {
+  detailModal = new Modal(detailModalDom.value);
+  detailModal.show();
+};
+
+const isPhone = (value) => {
+  const phoneNumber = /^(09)[0-9]{8}$/;
+  return phoneNumber.test(value) ? true : '需要正確的電話號碼';
+};
+
+watch(editor, () => {
+  // editor.value.readonlyData = editor.value.data;
+});
+
+defineExpose({
+  detailModalDom,
+  generateModal,
+  editor,
+});
+</script>
+
+<!-- </template> -->
+
+<!-- <template v-else>
             <section class="mb-3">
               <div class="mb-3">
                 <label for="name" class="form-label">姓名</label>
@@ -199,7 +284,6 @@
               </div>
 
               <div class="mb-3">
-                <label for="message" class="form-label">留言</label>
                 <input
                   id="message"
                   name="留言"
@@ -214,7 +298,7 @@
             </section>
           </template> -->
 
-          <!-- <button
+<!-- <button
             class="btn btn-primary d-block ms-auto mb-3"
             type="button"
             @click="(editor.canEdit = true), (editor.temp = JSON.parse(JSON.stringify(singleData)))"
@@ -222,85 +306,3 @@
           >
             編輯
           </button> -->
-
-          <section>
-            <h3 class="text-center bg-dark text-white py-3 mb-3">訂單資料</h3>
-          </section>
-          <table class="table">
-            <!-- <tbody>
-              <tr>
-                <th>訂單編號</th>
-                <td>{{ editor.data.id }}</td>
-              </tr>
-              <tr>
-                <th scope="row">訂單日期</th>
-                <td>{{ new Date(editor.data.create_at * 1000).toLocaleDateString() }}</td>
-              </tr>
-              <tr>
-                <th scope="row">訂單狀態</th>
-                <td>{{ editor.data?.is_paid ? '已處理' : '未處理' }}</td>
-              </tr>
-              <tr>
-                <th scope="row">訂單明細</th>
-                <td>
-                  <ul class="ps-0 mb-0">
-                    <li
-                      v-for="(item, index) in Object.values(editor.data.products)"
-                      :key="index"
-                      class="d-flex justify-content-between"
-                    >
-                      {{ item.product.title }} <span> {{ item.qty }} 件</span>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-end">總金額 {{ editor.data.total }} 元</td>
-              </tr>
-            </tbody> -->
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup>
-// import detailModalModel from '@/components/utils/DetailModalModel';
-
-import { ref, defineExpose } from 'vue';
-import { Modal } from 'bootstrap';
-
-const detailModalDom = ref(null);
-let detailModal = null;
-
-function generateModal() {
-  detailModal = new Modal(detailModalDom.value);
-  console.log(detailModal);
-  detailModal.show();
-  // new Modal(detailModalDom.value).show();
-}
-
-// onMounted(() => {
-//   detailModal = new Modal(detailModalDom.value);
-//   console.log(detailModal);
-// });
-
-const form = ref(null);
-const editor = ref({
-  canEdit: false, // true ==> 切換成 可以修改的表單 false ==> 顯示不包含驗證功能 readonly 的 表班
-  data: {}, // 暫存並 用來修改的資料 ( 深層拷貝 )
-  currentPage: 1, // 目前頁面在第幾頁，預設為第 1 頁
-});
-
-const isPhone = (value) => {
-  const phoneNumber = /^(09)[0-9]{8}$/;
-  return phoneNumber.test(value) ? true : '需要正確的電話號碼';
-};
-
-defineExpose({
-  detailModalDom,
-  generateModal,
-  editor,
-});
-</script>

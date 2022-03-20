@@ -15,7 +15,7 @@
     </button>
   </div>
   <div class="table-responsive text-nowrap mb-4">
-    <table class="table table-hover mb-0">
+    <table class="table table-hover align-middle mb-0">
       <thead>
         <tr>
           <th scope="row">分類</th>

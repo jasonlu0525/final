@@ -1,15 +1,7 @@
 <template>
   <nav
-    class="
-      py-3 py-lg-8
-      dashboard-menu
-      vh-auto vh-lg-100
-      bg-dark
-      text-white
-      navbar-dark navbar-expand-lg
-      d-lg-flex
-      flex-lg-column
-    "
+    class="py-3 py-lg-8 dashboard-menu bg-dark text-white navbar-dark navbar-expand-lg
+    d-lg-flex flex-lg-column vh-auto vh-lg-100"
   >
     <section class="mb-lg-11 px-3 px-lg-8 position-relative">
       <button
@@ -24,31 +16,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <h1
-        class="
-          mb-0
-          text-white text-center
-          fs-3
-          position-absolute
-          top-50
-          start-50
-          translate-middle
-          position-lg-static
-          translate-middle-lg-y-0
-        "
+        class="mb-0 text-white text-center fs-3 position-absolute top-50 start-50
+        translate-middle position-lg-static translate-middle-lg-y-0"
       >
         MR.PREPARE
       </h1>
     </section>
 
     <div
-      class="
-        collapse
-        navbar-collapse
-        align-items-lg-stretch
-        flex-lg-column
-        mt-7 mt-lg-0
-        justify-content-lg-between
-      "
+      class="collapse navbar-collapse align-items-lg-stretch flex-lg-column mt-7 mt-lg-0
+      justify-content-lg-between"
       id="navbarToggleExternalContent"
     >
       <ul class="navbar-nav d-lg-block">
@@ -141,10 +118,11 @@
 @import '~bootstrap/scss/mixins';
 
 .dashboard-menu {
-  // width: 100%;
-
+  position: sticky;
+  left: 0;
+  top: 0;
   @include media-breakpoint-up(lg) {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     width: 296px;
   }
