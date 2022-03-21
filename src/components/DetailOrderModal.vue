@@ -8,7 +8,7 @@
     aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title">詳細資訊</h5>
@@ -141,8 +141,13 @@
               >
                 取消
               </button>
-              <button type="submit" class="btn btn-primary text-white"
-              :disabled="Object.keys(errors).length>0">更新</button>
+              <button
+                type="submit"
+                class="btn btn-primary text-white"
+                :disabled="Object.keys(errors).length > 0"
+              >
+                更新
+              </button>
             </div>
           </Form>
 

@@ -16,12 +16,45 @@
         <tr class="">
           <th scope="col" @click="sortBy('id')">訂單編號</th>
           <th scope="col">聯絡人</th>
-          <th scope="col" @click="sortBy({ key: 'user', value: 'address' })">聯絡地址</th>
-          <th scope="col" @click="sortBy({ key: 'user', value: 'email' })">電子郵件</th>
-          <th scope="col" @click="sortBy('total')">訂單品項</th>
-          <th scope="col" @click="sortBy('create_at')">訂單日期</th>
+          <th scope="col">聯絡地址</th>
+          <th scope="col">電子郵件</th>
+          <th scope="col" @click="sortBy('total')">
+            <div class="d-flex align-items-center">
+              訂單品項
+              <span
+                class="material-icons-outlined"
+                v-if="sortRules === 'total'"
+                :class="{ 'transform-rotate-180': isReverse }"
+              >
+                arrow_drop_up
+              </span>
+            </div>
+          </th>
+          <th scope="col" @click="sortBy('create_at')">
+            <div class="d-flex align-items-center">
+              訂單日期
+              <span
+                class="material-icons-outlined"
+                v-if="sortRules === 'create_at'"
+                :class="{ 'transform-rotate-180': isReverse }"
+              >
+                arrow_drop_up
+              </span>
+            </div>
+          </th>
           <!---->
-          <th scope="col" @click="sortBy('is_paid')">訂單狀態</th>
+          <th scope="col" @click="sortBy('is_paid')">
+            <div class="d-flex align-items-center">
+              訂單狀態
+              <span
+                class="material-icons-outlined"
+                v-if="sortRules === 'is_paid'"
+                :class="{ 'transform-rotate-180': isReverse }"
+              >
+                arrow_drop_up
+              </span>
+            </div>
+          </th>
           <!-- is_paid -->
           <th scope="col">操作</th>
         </tr>
@@ -193,10 +226,7 @@ const sortData = computed({
 
     return data.sort((a, b) => (isReverse.value
       ? b[sortRules.value] - a[sortRules.value] // 單層物件取值
-          || b[sortRules.value.key][sortRules.value.value] // 雙層物件取值
-            - a[sortRules.value.key][sortRules.value.value]
-      : a[sortRules.value] - b[sortRules.value]
-          || a[sortRules.value.key] - b[sortRules.value.value]));
+      : a[sortRules.value] - b[sortRules.value]));
   },
 });
 

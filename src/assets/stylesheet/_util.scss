@@ -96,14 +96,14 @@ $utilities: map-merge(
       values: $position-values,
     ),
     'translate-middle': (
-      responsive:true,
+      responsive: true,
       property: transform,
       class: translate-middle,
       values: (
         null: translate(-50%, -50%),
         x: translateX(-50%),
         y: translateY(-50%),
-        'y-0':translateY(0%),
+        'y-0': translateY(0%),
       ),
     ),
     // scss-docs-end utils-position
@@ -218,20 +218,19 @@ $utilities: map-merge(
       ),
     ),
     'viewport-height': (
-      responsive:true,
+      responsive: true,
       property: height,
       class: vh,
       values: (
-        auto:auto,
+        auto: auto,
         100: 100vh,
       ),
     ),
     'min-viewport-height': (
-   
       property: min-height,
       class: min-vh,
       values: (
-        auto:auto,
+        auto: auto,
         100: 100vh,
       ),
     ),
@@ -732,8 +731,19 @@ $utilities: map-merge(
           visible: visible,
           invisible: hidden,
         ),
+      ),
+    // scss-docs-end utils-visibility
+    // 自訂義 roatate
+    'rotate':
+      (
+        property: transform,
+        class: transform-rotate,
+        values: (
+          0: rotate(0deg),
+          90: rotate(90deg),
+          180: rotate(180deg),
+        ),
       )
-      // scss-docs-end utils-visibility
   ),
   $utilities
 );
