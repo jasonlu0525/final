@@ -234,6 +234,25 @@ export default function () {
     Authorization,
   });
 
+  // 優惠券
+
+  const getAdminCoupons = ({ page = 1, generateLoader, Authorization = true }) => taskQueue({
+    method: 'get',
+    path: `api/jason/admin/coupons?page=${page}`,
+    generateLoader,
+    Authorization,
+  });
+
+  //   const postAdminProduct = ({ generateLoader, Authorization = true, config }) => taskQueue({
+  //   method: 'post',
+  //   path: 'api/jason/admin/product',
+  //   config: {
+  //     data: config,
+  //   },
+  //   generateLoader,
+  //   Authorization,
+  // });
+
   return {
     loader,
 
@@ -262,6 +281,7 @@ export default function () {
 
     putAdminProduct,
     postAdminProduct,
+    getAdminCoupons,
     // 解 es-lint Dependency cycle detected import/no-cycle  依賴項錯誤
   };
 }

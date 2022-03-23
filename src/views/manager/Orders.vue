@@ -79,7 +79,8 @@
                       index !== Object.values(item.products).length - 1,
                   }"
                 >
-                  {{ purchaseList.product.title }}-{{ purchaseList.product.price }} 元 *
+                  {{ purchaseList.product.title }}-{{ purchaseList.product.price }}
+                  元 *
                   {{ purchaseList.qty }}
                   {{ purchaseList.product.unit }}
                 </li>
@@ -90,10 +91,21 @@
               </ul>
             </td>
             <td>{{ new Date(item.create_at * 1000).toLocaleString() }}</td>
-            <td :class="{ 'text-success': item.is_paid, 'text-danger': !item.is_paid }">
+            <td
+              :class="{
+                'text-success': item.is_paid,
+                'text-danger': !item.is_paid,
+              }"
+            >
               {{ item.is_paid ? '已付款' : '未付款' }}
             </td>
-            <td class="" :class="{ 'text-success': item.is_paid, 'text-danger': !item.is_paid }">
+            <td
+              class=""
+              :class="{
+                'text-success': item.is_paid,
+                'text-danger': !item.is_paid,
+              }"
+            >
               <button
                 class="btn btn-outline-primary btn-sm"
                 type="button"
@@ -114,7 +126,9 @@
       </template>
       <tbody v-else-if="orderData.hasOwnProperty('orders') && orderData.orders.length === 0">
         <tr>
-          <td colspan="8"><h2 class="text-danger text-center">目前還沒有訂單</h2></td>
+          <td colspan="8">
+            <h2 class="text-danger text-center">目前還沒有訂單</h2>
+          </td>
         </tr>
       </tbody>
     </table>
