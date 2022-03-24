@@ -274,7 +274,6 @@ export default {
     // setErrors
 
     const onSubmit = () => {
-      console.log(adjustProductModalData);
       if (adjustProductModalData.value.action === 'post') {
         emit('emit-add-newProduct', adjustProductModalData.value);
       } else if (adjustProductModalData.value.action === 'put') {

@@ -5,7 +5,7 @@
       class="btn btn-primary"
       @click="
         generateModal({
-          targetModal: adjustProductModalDom,
+          targetModal: AdjustProductModalDom,
           page,
           action: 'post',
         })
@@ -42,7 +42,7 @@
                 class="btn btn-outline-primary btn-sm"
                 @click="
                   generateModal({
-                    targetModal: adjustProductModalDom,
+                    targetModal: AdjustProductModalDom,
                     id: item.id,
                     page,
                     coipedData: JSON.parse(JSON.stringify(item)),
@@ -56,7 +56,7 @@
                 class="btn btn-outline-danger btn-sm"
                 @click="
                   generateModal({
-                    targetModal: deleteModalDom,
+                    targetModal: DeleteModalDom,
                     id: item.id,
                     page,
                     action: 'delete',
@@ -74,24 +74,24 @@
     </table>
   </div>
 
-  <pagination
+  <Pagination
     v-if="adminProductsData.pagination"
     :propPagination="adminProductsData.pagination"
     @emit-change-page="productChangePage"
-  ></pagination>
-  <delete-modal ref="deleteModalDom" @emit-delete-order="deleteSingleProduct"></delete-modal>
-  <adjust-product-modal
-    ref="adjustProductModalDom"
+  />
+  <Delete-modal ref="DeleteModalDom" @emit-delete-order="deleteSingleProduct" />
+  <Adjust-product-modal
+    ref="AdjustProductModalDom"
     @emit-add-newProduct="onAddNewProduct"
     @emit-edit-product="onEditProduct"
-  ></adjust-product-modal>
+  />
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import pagination from '@/components/Pagination.vue';
-import deleteModal from '@/components/DeleteModal.vue';
-import adjustProductModal from '@/components/AdjustProductModal.vue';
+import Pagination from '@/components/Pagination.vue';
+import DeleteModal from '@/components/DeleteModal.vue';
+import AdjustProductModal from '@/components/AdjustProductModal.vue';
 import commonPackage from '@/components/utils/commonPackage';
 
 const {
@@ -102,8 +102,8 @@ const {
   postAdminProduct,
 } = commonPackage();
 const adminProductsData = ref({});
-const deleteModalDom = ref(null); // 元件
-const adjustProductModalDom = ref(null);
+const DeleteModalDom = ref(null); // 元件
+const AdjustProductModalDom = ref(null);
 
 getAdminProducts({}).then((result) => {
   adminProductsData.value = result.data;
@@ -127,7 +127,7 @@ const deleteSingleProduct = ({ id, page }) => {
 const generateModal = ({
   targetModal, // 要打開的 modal 元件
   id, // 編輯功能會用到 id
-  page = adminProductsData.value.pagination.current_page, // 打開 modal 時在第幾頁，必填
+  page = adminProductsData.value.Pagination.current_page, // 打開 modal 時在第幾頁，必填
   coipedData = {}, // 複製的資料 | 新增功能預設帶入空物件
   action = 'put', // 請求方法 ，必填
 }) => {

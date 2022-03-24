@@ -1,16 +1,22 @@
 <template v-if="propPagination">
   <ul class="pagination justify-content-end mb-0">
     <li
+      v-if="propPagination.has_pre"
       class="page-item"
       :class="{ disabled: !propPagination.has_pre }"
-      @click.prevent="
-        changePage({
-          hasPrevOrNextPage: propPagination.has_pre,
-          page: propPagination.current_page - 1,
-        })
-      "
     >
-      <a class="page-link" href="#">上一頁</a>
+      <a
+        class="page-link"
+        href="#"
+        @click.prevent="
+          changePage({
+            hasPrevOrNextPage: propPagination.has_pre,
+            page: propPagination.current_page - 1,
+          })
+        "
+      >
+        ＜
+      </a>
     </li>
 
     <li
@@ -18,27 +24,40 @@
       :class="{ active: item === propPagination.current_page }"
       v-for="item in propPagination.total_pages"
       :key="item"
-      @click.prevent="
-        changePage({
-          hasPrevOrNextPage: true,
-          page: item,
-        })
-      "
     >
-      <a class="page-link" href="#"> {{ item }} </a>
+      <a
+        v-if="item !== propPagination.current_page"
+        class="page-link"
+        href="#"
+        @click.prevent="
+          changePage({
+            hasPrevOrNextPage: true,
+            page: item,
+          })
+        "
+      >
+        {{ item }}
+      </a>
+      <span class="page-link" v-else>{{ item }}</span>
     </li>
 
     <li
+      v-if="propPagination.has_next"
       class="page-item"
       :class="{ disabled: !propPagination.has_next }"
-      @click.prevent="
-        changePage({
-          hasPrevOrNextPage: propPagination.has_next,
-          page: propPagination.current_page + 1,
-        })
-      "
     >
-      <a class="page-link" href="#">下一頁</a>
+      <a
+        class="page-link"
+        href="#"
+        @click.prevent="
+          changePage({
+            hasPrevOrNextPage: propPagination.has_next,
+            page: propPagination.current_page + 1,
+          })
+        "
+      >
+        >
+      </a>
     </li>
   </ul>
 </template>
