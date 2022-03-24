@@ -7,7 +7,13 @@
       @click="
         generateModal({
           targetModal: couponModal,
-          dataPattern: {},
+          dataPattern: {
+            title: '',
+            is_enabled: 1,
+            percent: 0,
+            due_date: '',
+            code: '',
+          },
           action: 'post', // 請求方法 ，必填
         })
       "
@@ -46,7 +52,13 @@
             <button
               class="btn btn-outline-primary btn-sm"
               type="button"
-              @click="openDataModal({ item, index })"
+              @click="
+                generateModal({
+                  targetModal: couponModal,
+                  dataPattern: JSON.parse(JSON.stringify(item)) ,
+                  action: 'put', // 請求方法 ，必填
+                })
+              "
             >
               詳細資訊
             </button>

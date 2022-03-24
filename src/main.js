@@ -7,17 +7,19 @@ import { localize, setLocale } from '@vee-validate/i18n';
 
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 
-import { createApp } from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueLoading from 'vue-loading-overlay';
 
-import router from './router';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import 'bootstrap';
 
+import { createApp } from 'vue';
+import router from './router';
 import App from './App.vue';
 
 Object.keys(AllRules).forEach((rule) => {
@@ -48,5 +50,7 @@ app.component('Form', Form);
 app.component('Field', Field);
 
 app.component('ErrorMessage', ErrorMessage);
+
+app.component('Datepicker', Datepicker);
 
 app.mount('#app');
