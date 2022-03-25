@@ -11,7 +11,7 @@
             title: '',
             is_enabled: 1,
             percent: 0,
-            due_date: '',
+            due_date: Date.parse(new Date()) / 1000,
             code: '',
           },
           action: 'post', // 請求方法 ，必填
@@ -55,7 +55,7 @@
               @click="
                 generateModal({
                   targetModal: couponModal,
-                  dataPattern: JSON.parse(JSON.stringify(item)) ,
+                  dataPattern: JSON.parse(JSON.stringify(item)),
                   action: 'put', // 請求方法 ，必填
                 })
               "

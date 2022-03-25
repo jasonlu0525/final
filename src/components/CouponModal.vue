@@ -10,7 +10,9 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{ couponData.action === 'post' ? '新增優惠券' : '編輯優惠券' }}
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -19,7 +21,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <Form v-slot="{ errors }" ref="form">
+          <Form v-slot="{ errors }" ref="form" @submit="submitCoupon">
             <div class="mb-3">
               <label for="優惠券名稱" class="form-label">優惠券名稱</label>
               <field
@@ -93,6 +95,8 @@
                 v-model="couponData.data.is_enabled"
                 class="form-check-input"
                 type="checkbox"
+                :true-value="1"
+                :false-value="0"
               />
               <label for="是否啟用" class="form-label form-check-label">是否啟用</label>
             </div>
@@ -102,7 +106,7 @@
               type="submit"
               :disabled="Object.keys(errors).length > 0"
             >
-              送出訂單
+              確認{{ couponData.action === 'post' ? '新增' : '修改' }}
             </button>
           </Form>
         </div>
@@ -118,7 +122,9 @@
 <script setup>
 import { ref, defineExpose } from 'vue';
 import { Modal } from 'bootstrap';
+import commonPackage from '@/components/utils/commonPackage';
 
+const { putAdminCoupons } = commonPackage();
 let couponModal = null;
 const form = ref(null);
 const couponModalDom = ref(null);
@@ -151,15 +157,32 @@ const generateModal = ({
 
   couponData.value.data = dataPattern;
 
-  const date = new Date(couponData.value.data.due_date * 1000).toISOString().split('T')[0];
+  const date = new Date(couponData.value.data.due_date * 1000).toISOString().split('T')[0]; // 日期數字轉字串
 
   couponData.value.data.due_date = date;
   couponData.value.action = action;
   form.value.resetForm();
-  // form.value.resetForm();
-  // console.log(form.value);
 };
 
+const submitCoupon = () => {
+  const dateNumber = Date.parse(couponData.value.data.due_date) / 1000;
+
+  // 不能調整 due_date，會造成 v-model 時間綁定錯誤，因此只能組 config 覆蓋 couponData.value.data.due_date
+  const config = {
+    ...couponData.value.data,
+    due_date: dateNumber,
+  };
+
+  console.log(config);
+  const { action } = couponData.value;
+  const { id } = couponData.value.data;
+  if (action === 'post') {
+    console.log('add');
+  } else if (action === 'put') {
+    console.log('put');
+    putAdminCoupons({ id, config });
+  }
+};
 // watch(couponData.value, () => {
 //   form.value.resetForm();
 // });
@@ -174,5 +197,6 @@ const generateModal = ({
 defineExpose({
   generateModal,
   couponData,
+  submitCoupon,
 });
 </script>
